@@ -1,0 +1,3 @@
+install react - npx install-react-app .
+delete git from client - Remove-Item -Recurse -Force .\.git
+run client - npm start

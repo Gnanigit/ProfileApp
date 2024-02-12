@@ -1,0 +1,2 @@
+intialize git in Login App - git init
+create gitingnore in Login App
