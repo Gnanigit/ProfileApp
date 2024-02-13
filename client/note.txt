@@ -1,3 +1,12 @@
 install react - npx install-react-app .
 delete git from client - Remove-Item -Recurse -Force .\.git
 run client - npm start
+Tailwindcss:
+    npm install -D tailwindcss postcss prefixer
+    npx tailwindcss init -p
+To create routes - npm i react-router-dom
+
+to show error message in Username.js
+    npm i formik react-hot-toast
+
+Toast module - used for toasting the error messages
