@@ -1,26 +1,38 @@
 import { Router } from "express";
 const router = Router();
 
+// import all controllers
+
+import * as controller from '../controllers/appController.js'
 
 
 
-// post methods
-router.route('/register').post((req, res) => {
-    res.json('register router')
-})
+// post methods -----------
 
-router.route('/registerMail').post();
-router.route('/authenticate').post();
-router.route('/login').post();
+// register user
+router.route('/register').post((controller.register))
+// send mail
+// router.route('/registerMail').post();
+// authenticate user
+router.route('/authenticate').post((req,res)=>res.end());
+// login app
+router.route('/login').post(controller.login);
 
 
-// get methods
-router.route('/user/:username').get()
-router.route('/generateOTP').get()
-router.route('/VerifyOTP').get()
-router.route('/createResetSession').get()
+// get methods ------------
+// user eith username
+router.route('/user/:username').get(controller.getUser)
+// generate rendom otp
+router.route('/generateOTP').get(controller.generateOTP)
+// verify generated otp
+router.route('/VerifyOTP').get(controller.verifyOTP)
+// reset all the variables
+router.route('/createResetSession').get(controller.createResetSession)
 
 
 // put methods
-router.route('')
+// used to update the user profile
+router.route('updateUser').put(controller.updateUser)
+// used to reset 
+router.route('resetPassword').put(controller.resetPassword)
 export default router;

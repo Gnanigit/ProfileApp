@@ -25,9 +25,10 @@ app.get('/',(req,res)=>{
     res.status(201).json("Home GET Request");
 })
 
-// api routes
-
+// api routes - middleware
 app.use('/api',router)
+
+
 
 connect().then(()=>{
     try{
