@@ -3,6 +3,10 @@ import toast from 'react-hot-toast';
 // validate login page username
 export async function usernameValidate(values){
     const errors= usernameVerify({},values);
+    // if(values.username){
+    //     // check user exist or not
+
+    // }
     return errors;
 }
 
