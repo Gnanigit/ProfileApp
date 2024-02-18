@@ -1,1 +1,3 @@
 this is server file
+
+cmnd to generate 64bit random JWT_TOKEN :  [Convert]::ToBase64String((Get-Random -InputObject (0..255) -Count 32 | % { [byte]$_ }))

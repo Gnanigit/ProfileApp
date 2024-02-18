@@ -16,7 +16,7 @@ router.route('/register').post((controller.register))
 // authenticate user
 router.route('/authenticate').post((req,res)=>res.end());
 // login app
-router.route('/login').post(controller.login);
+router.route('/login').post(controller.verifyUser,controller.login);
 
 
 // get methods ------------
@@ -32,7 +32,7 @@ router.route('/createResetSession').get(controller.createResetSession)
 
 // put methods
 // used to update the user profile
-router.route('updateUser').put(controller.updateUser)
+router.route('/updateuser').put(controller.updateUser)
 // used to reset 
-router.route('resetPassword').put(controller.resetPassword)
+router.route('/resetPassword').put(controller.resetPassword)
 export default router;
