@@ -191,27 +191,29 @@ body: {
     profile : ''
 }
 */
-export async function updateUser(req,res){
-    try{
-        const userId=req.query.id;
-        if(userId){
-            const body=req.body;
-            UserModel.updateOne({_id:userId},body).then(data=>{
-                return res.status(201).send({msg:"Record Updated"})
-            })
-            .catch(error=>{
-                throw err;
-            })
+export async function updateUser(req, res) {
+    try {
+        const { userId } = req.user;
+
+        if (userId) {
+            const body = req.body;
+
+            // Update the data
+            UserModel.updateOne({ _id: userId }, body).exec()
+                .then(() => {
+                    return res.status(201).send({ msg: "Record Updated...!" });
+                })
+                .catch(err => {
+                    throw err;
+                });
+        } else {
+            return res.status(401).send({ error: "User Not Found...!" });
         }
-        else{
-            return res.status(401).send({error:"user not found"})
-        }
-    }
-    catch(error){
-        console.log(error)
-        return res.status(401).send({error});
+    } catch (error) {
+        return res.status(401).send({ error: error.message });
     }
 }
+
 
 /** GET: http://localhost:8080/api/generateOTP */
 export async function generateOTP(req,res){

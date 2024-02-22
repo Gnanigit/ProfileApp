@@ -24,51 +24,58 @@ export async function getUser({username}){
     }
 }
 
-// register user
-export async function registeruser(credentials){
-    try{
-        const {data:{msg},status}=await axios.post(`/api/register`,{credentials})
-        let {username,email}=credentials;
-        if(status===201){
-            await axios.post('/api/registerMail',{username,userEmail:email,text:msg})
-        }
 
-        return Promise.resolve(msg);
-    }
-    catch(error){
-        return Promise.reject({error})
-    }
-}
 
 // login function
-export async function verifyPassword({username,password}){
-    try{
-        if(username){
-            const {data}=await axios.post('/api/login',{username,password})
-            return Promise.resolve({data})
+/** register user function */
+export async function registerUser(credentials){
+    try {
+        const { data : { msg }, status } = await axios.post(`/api/register`, credentials);
+
+        let { username, email } = credentials;
+
+        /** send email */
+        if(status === 201){
+            await axios.post('/api/registerMail', { username, userEmail : email, text : msg})
         }
-    }
-    catch(error){
-        return promise.reject({error:"Pasword doesn't match"})
+
+        return Promise.resolve(msg)
+    } catch (error) {
+        return Promise.reject({ error })
     }
 }
+
+/** login function */
+export async function verifyPassword({ username, password }){
+    try {
+        if(username){
+            const { data } = await axios.post('/api/login', { username, password })
+            return Promise.resolve({ data });
+        }
+    } catch (error) {
+        return Promise.reject({ error : "Password doesn't Match...!"})
+    }
+}
+
+
 
 // update user details
 export async function updateUser(response){
-    try{
-        const token=await localStorage.getItem('token');
-        const data= await axios.put('/api/updatUser',response,{headers:{'Authorization':`Bearer ${token}`}})
-        return Promise.resolve({data})
-    }
-    catch(error){
-        return Promise.reject({error:"couldn't update profile"})
+    try {
+        
+        const token = await localStorage.getItem('token');
+        const data = await axios.put('/api/updateuser', response, { headers : { "Authorization" : `Bearer ${token}`}});
+
+        return Promise.resolve({ data })
+    } catch (error) {
+        return Promise.reject({ error : "Couldn't Update Profile...!"})
     }
 }
 
 //generate OTP
 export async function generateOTP(username){
     try{
-        const {data:{code}}=await axios.get('/api/generateOTP',{params:{username}})
+        const {data:{code},status}=await axios.get('/api/generateOTP',{params:{username}})
         if(status===201){
             let {data:{email}}=await getUser({username})
             let text=`Your password RecoveryOTP is ${code}. Verify and recover your password.`;
@@ -77,7 +84,7 @@ export async function generateOTP(username){
         return Promise.resolve(code);
     }
     catch(error){
-        return promise.reject({error})
+        return Promise.reject({error})
     }
 }
 

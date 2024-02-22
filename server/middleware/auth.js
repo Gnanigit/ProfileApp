@@ -9,6 +9,7 @@ export default async function Auth(req,res,next){
         next();
     }
     catch(error){
+        console.log("error here")
         res.status(401).send({error:"authentication failed"})
     }
 }
