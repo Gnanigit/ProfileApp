@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import avatar from'../assets/profile.png';
 import styles from '../styles/Username.module.css';
 import extend from '../styles/Profile.module.css'
@@ -8,13 +8,14 @@ import { useFormik } from 'formik';
 import converToBase64 from '../helper/convert';
 import { profileValidation } from '../helper/validate';
 import useFetch from '../hooks/fetch.hook';
-import {useAuthStore} from '../store/store'
+// import {useAuthStore} from '../store/store'
 import { updateUser} from '../helper/helper';
+import { useNavigate} from 'react-router-dom'
 
 export default function Profile() {
   const [file,setFile] = useState();
-  const {username}=useAuthStore(state=>state.auth)
-  const [{isLoading,apiData,serverError}]=useFetch(`/user/${username}`)
+  const navigate = useNavigate();
+  const [{isLoading,apiData,serverError}]=useFetch()
   const formik = useFormik({
     initialValues:{
       firstName:apiData?.firstName||'',
@@ -28,7 +29,7 @@ export default function Profile() {
     validateOnBlur:false,
     validateOnChange:false,
     onSubmit: async values =>{
-      values = await Object.assign(values,{profile:file || ""});
+      values = await Object.assign(values,{profile:file || apiData?.profile || ""});
       let updatePromise=updateUser(values);
       toast.promise(updatePromise,{
         loading:"Updating....",
@@ -42,6 +43,12 @@ export default function Profile() {
   const onUpload = async e =>{
     const base64 = await converToBase64(e.target.files[0]);
     setFile(base64);
+  }
+
+  // logout handler functions
+  function userLogout(){
+    localStorage.removeItem('token');
+    navigate('/');
   }
   if(isLoading){
     return <h1 className='text-2xl fornt-bold'>isLoading</h1>
@@ -84,7 +91,7 @@ export default function Profile() {
           
             </div>
             <div className='text-center py-4'>
-              <span className='text-gray-500'>come back later? <Link className='text-red-500' to='/'>Logout</Link></span>
+              <span className='text-gray-500'>come back later? <button onClick={userLogout} className='text-red-500' to='/'>Logout</button></span>
             </div>
           </form>
         </div>
