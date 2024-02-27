@@ -58,6 +58,8 @@ export async function verifyPassword({ username, password }){
         if(username){
             const { data } = await axios.post('/api/login', { username, password })
             return Promise.resolve({ data });
+        }else{
+            return Promise.reject({ error : "Password doesn't Match...!"})
         }
     } catch (error) {
         return Promise.reject({ error : "Password doesn't Match...!"})

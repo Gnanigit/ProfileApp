@@ -1,5 +1,6 @@
 export default{
     JWT_SECRET:"KnKMvfrajy4QUbQ3OiRXVpp+QdZ3far45odear7n6TA=",
     EMAIL:"gnani4412@gmail.com",
-    PASSWORD:"xrpt qwsm ajjy kdcr"
+    PASSWORD:"xrpt qwsm ajjy kdcr",
+    ATLAS_URI:'mongodb+srv://Gnani:1234@cluster0.dt4esop.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 }

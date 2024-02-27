@@ -17,24 +17,37 @@ export default function Register() {
 
   const formik = useFormik({
     initialValues : {
-      email: 'gnani4412@gmail.com',
-      username: 'example123',
-      password : 'admin@123'
+      email: '',
+      username: '',
+      password : ''
     },
     validate : registerValidation,
     validateOnBlur: false,
     validateOnChange: false,
-    onSubmit : async values => {
-      values = await Object.assign(values, { profile : file || ''})
-      let registerPromise = registerUser(values)
-      toast.promise(registerPromise, {
-        loading: 'Creating...',
-        success : <b>Register Successfully...!</b>,
-        error : <b>Could not Register.</b>
-      });
-
-      registerPromise.then(function(){ navigate('/')});
+    onSubmit: async values => {
+      try {
+        values = await Object.assign(values, { profile: file || '' });
+        let registerPromise = registerUser(values);
+        
+        // Loading toast
+        toast.promise(registerPromise, {
+          loading: 'Creating...',
+          success: (response)=>{
+            registerPromise.then(function(){ navigate('/')});
+              return "Register Successfully...!"
+          } ,// No success toast here
+          error: (error)=>{
+            return "Could not Register."
+          }, // No error toast here
+        });
+        
+      } catch (error) {
+        // Error toast if registration fails
+        toast.error("Could not Register.");
+      }
     }
+    
+    
   })
 
   /** formik doensn't support file upload so we need to create this handler */
@@ -48,7 +61,7 @@ export default function Register() {
 
       <Toaster position='top-center' reverseOrder={false}></Toaster>
 
-      <div className='flex justify-center items-center h-screen'>
+      <div className='flex justify-center items-center min-h-screen'>
         <div className={styles.glass} style={{ width: "45%", paddingTop: '3em'}}>
 
           <div className="title flex flex-col items-center">

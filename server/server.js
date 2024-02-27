@@ -40,5 +40,5 @@ connect().then(()=>{
         console.log("Cannot connect mongodb");
     }
 }).catch(error=>{
-    console.log("Invali database connection");
+    console.log("Invalid database connection");
 })

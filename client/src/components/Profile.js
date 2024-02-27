@@ -59,7 +59,7 @@ export default function Profile() {
   return (
     <div className='container mx-auto'>
       <Toaster position='top-center' reverseOrder={false}></Toaster>
-      <div className='flex justify-center items-center h-screen'>
+      <div className='flex justify-center items-center min-h-screen'>
         <div className={`${styles.glass} ${extend.glass}`} style={{width:'45%'}}>
           <div className='title flex flex-col items-center'>
             <h4 className='text-5xl font-bold'>Profile</h4>
