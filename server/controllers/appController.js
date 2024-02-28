@@ -4,6 +4,8 @@ import bcrypt from 'bcrypt'
 import ENV from '../config.js'
 import otpGenerator from "otp-generator"
 
+
+
 // middleware for verify user
 export async function verifyUser(req,res,next){
     try{
@@ -20,7 +22,8 @@ export async function verifyUser(req,res,next){
         return res.status(404).send({error:"Authentication error"})
     }
 }
-/**
+
+/** 
  * /** POST: http://localhost:8080/api/register 
  * @param : {
   "username" : "example123",
@@ -33,6 +36,7 @@ export async function verifyUser(req,res,next){
   "profile": ""
 }
  */
+
 export async function register(req,res){
 
     try {
