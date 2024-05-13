@@ -10,7 +10,7 @@ import router from "./router/route.js";
 const app=express();
 const port=8080
 
-const allowedOrigin = '';
+const allowedOrigin = 'https://login-app-pink.vercel.app';
 
 // uses
 app.use(express.json({ limit: '100mb' }));
