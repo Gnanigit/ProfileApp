@@ -10,11 +10,13 @@ import router from "./router/route.js";
 const app=express();
 const port=8080
 
-
+const allowedOrigin = '';
 
 // uses
 app.use(express.json({ limit: '100mb' }));
-app.use(cors());
+app.use(cors({
+    origin: allowedOrigin
+  }))
 app.use(morgan('tiny'))
 app.disable('x-powered-by')    // less hackers know about our stack
 
